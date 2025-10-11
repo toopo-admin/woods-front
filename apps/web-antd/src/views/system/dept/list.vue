@@ -8,14 +8,8 @@ import type { SystemDeptApi } from '#/api/system/dept';
 import { nextTick, onMounted, ref } from 'vue';
 
 import { Page, useVbenModal } from '@vben/common-ui';
-import {
-  IconifyIcon,
-  SvgArrowOpenDownIcon,
-  SvgArrowOpenRightIcon,
-} from '@vben/icons';
+import { SvgArrowOpenDownIcon, SvgArrowOpenRightIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
-
-import { MenuBadge } from '@vben-core/menu-ui';
 
 import { Button, message } from 'ant-design-vue';
 
