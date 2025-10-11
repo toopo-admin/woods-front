@@ -7,50 +7,6 @@ type SelectOption = BasicOption;
 
 type TabOption = BasicOption;
 
-// 按钮权限
-interface roleBtn {
-  /**
-   * 按钮id
-   */
-  id: string;
-  /**
-   * 按钮编号
-   */
-  btn_code: string;
-  /**
-   * 按钮名称
-   */
-  btn_name: string;
-}
-
-// 菜单权限
-interface roleMenu {
-  /**
-   * 菜单id
-   */
-  menu_id: string;
-  /**
-   * 菜单名称
-   */
-  menu_title: string;
-  /**
-   * 路由name
-   */
-  route_name: string;
-  /**
-   * 路由path
-   */
-  route_path: string;
-  /**
-   * 排序
-   */
-  sort: number;
-  /**
-   * 菜单按钮
-   */
-  menu_btn: roleBtn[];
-}
-
 interface BasicUserInfo {
   [key: string]: any;
   /**
@@ -84,16 +40,9 @@ interface BasicUserInfo {
   /**
    * 菜单权限
    */
-  role_menu: roleMenu[];
+  role_menu: [];
 }
 
 type ClassType = Array<object | string> | object | string;
 
-export type {
-  BasicOption,
-  BasicUserInfo,
-  ClassType,
-  SelectOption,
-  TabOption,
-  roleMenu,
-};
+export type { BasicOption, BasicUserInfo, ClassType, SelectOption, TabOption };

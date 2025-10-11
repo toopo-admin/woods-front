@@ -36,7 +36,7 @@ async function getDeptList() {
 async function createDept(
   data: Omit<SystemDeptApi.SystemDept, 'children' | 'id'>,
 ) {
-  return requestClient.post('/system/dept', data);
+  return requestClient.post('/system/dept/create', data);
 }
 
 /**
@@ -75,26 +75,4 @@ async function isDeptCodeExist(
   });
 }
 
-/**
- * 校验部门名称是否存在
- * @param id 表id
- * @param deptName 部门名称
- */
-async function isDeptNameExist(
-  deptName: string,
-  id?: SystemDeptApi.SystemDept['id'],
-) {
-  return requestClient.get('/system/dept/name-exist', {
-    params: { id, deptName },
-    responseReturn: 'data',
-  });
-}
-
-export {
-  createDept,
-  deleteDept,
-  getDeptList,
-  isDeptCodeExist,
-  isDeptNameExist,
-  updateDept,
-};
+export { createDept, deleteDept, getDeptList, isDeptCodeExist, updateDept };

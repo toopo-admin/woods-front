@@ -8,13 +8,13 @@ export function useGridFormSchema(): VbenFormSchema[] {
   return [
     {
       component: 'Input',
-      fieldName: 'dept_code',
+      fieldName: 'deptCode',
       componentProps: { allowClear: true },
       label: $t('system.dept.deptCode'),
     },
     {
       component: 'Input',
-      fieldName: 'dept_name',
+      fieldName: 'deptName',
       componentProps: { allowClear: true },
       label: $t('system.dept.deptName'),
     },
@@ -27,15 +27,15 @@ export function useColumns(
   return [
     {
       align: 'left',
-      field: 'dept_name',
+      field: 'deptName',
       fixed: 'left',
-      slots: { default: 'dept_name' },
+      slots: { default: 'deptName' },
       title: $t('system.dept.deptName'),
       treeNode: true,
       minWidth: 305,
     },
     {
-      field: 'dept_code',
+      field: 'deptCode',
       align: 'center',
       title: $t('system.dept.deptCode'),
       minWidth: 200,

@@ -52,15 +52,15 @@ const [Grid, gridApi] = useVbenVxeGrid({
       ajax: {
         query: async (
           _params: any,
-          formValues: { menu_title: string; route_path: string },
+          formValues: { menuTitle: string; routePath: string },
         ) => {
           tableList.value = await getMenuList();
-          const menu_title = formValues.menu_title?.trim();
-          const route_path = formValues.route_path?.trim();
-          if (menu_title || route_path) {
+          const menuTitle = formValues.menuTitle?.trim();
+          const routePath = formValues.routePath?.trim();
+          if (menuTitle || routePath) {
             tableList.value = handleTreeFilte(tableList.value, [
-              { prop: 'meta.title', value: menu_title },
-              { prop: 'path', value: route_path },
+              { prop: 'meta.title', value: menuTitle },
+              { prop: 'path', value: routePath },
             ]);
             setTimeout(() => {
               onExpand();

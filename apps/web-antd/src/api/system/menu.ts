@@ -125,14 +125,14 @@ async function isMenuCodeExist(
 /**
  * 校验路由path是否存在
  * @param id 表id
- * @param route_path 路由path
+ * @param routePath 路由path
  */
 async function isMenuPathExist(
   path: string,
   id?: SystemMenuApi.SystemMenu['id'],
 ) {
   return requestClient.get('/system/menu/path-exist', {
-    params: { id, route_path: path },
+    params: { id, routePath: path },
     responseReturn: 'data',
   });
 }

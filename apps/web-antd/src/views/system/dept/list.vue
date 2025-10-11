@@ -196,30 +196,10 @@ onMounted(() => {
           class="size-5 cursor-pointer pt-1 transition-colors hover:text-blue-600"
         />
       </template>
-      <template #title="{ row }">
+      <template #deptName="{ row }">
         <div class="flex w-full items-center gap-1">
-          <div class="size-5 flex-shrink-0">
-            <IconifyIcon
-              v-if="row.type === 'button'"
-              icon="carbon:security"
-              class="size-full"
-            />
-            <IconifyIcon
-              v-else-if="row.meta?.icon"
-              :icon="row.meta?.icon || 'carbon:circle-dash'"
-              class="size-full"
-            />
-          </div>
-          <span class="flex-auto">{{ $t(row.meta?.title) }}</span>
-          <div class="items-center justify-end"></div>
+          <span class="flex-auto">{{ $t(row.deptName) }}</span>
         </div>
-        <MenuBadge
-          v-if="row.meta?.badgeType"
-          class="dept-badge"
-          :badge="row.meta.badge"
-          :badge-type="row.meta.badgeType"
-          :badge-variants="row.meta.badgeVariants"
-        />
       </template>
     </Grid>
   </Page>

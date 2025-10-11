@@ -26,13 +26,13 @@ export function useGridFormSchema(): VbenFormSchema[] {
   return [
     {
       component: 'Input',
-      fieldName: 'menu_title',
+      fieldName: 'menuTitle',
       componentProps: { allowClear: true },
       label: $t('system.menu.menuTitle'),
     },
     {
       component: 'Input',
-      fieldName: 'route_path',
+      fieldName: 'routePath',
       componentProps: { allowClear: true },
       label: $t('system.menu.path'),
     },

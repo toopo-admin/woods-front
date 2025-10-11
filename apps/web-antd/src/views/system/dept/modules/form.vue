@@ -18,7 +18,6 @@ import {
   createDept,
   getDeptList,
   isDeptCodeExist,
-  isDeptNameExist,
   updateDept,
 } from '#/api/system/dept';
 import { $t } from '#/locales';
@@ -67,19 +66,7 @@ const schema: VbenFormSchema[] = [
     rules: z
       .string()
       .min(2, $t('ui.formRules.minLength', [$t('system.dept.deptName'), 2]))
-      .max(30, $t('ui.formRules.maxLength', [$t('system.dept.deptName'), 30]))
-      .refine(
-        async (value: string) => {
-          const res = await isDeptNameExist(value, formData.value?.id);
-          return res.valid;
-        },
-        (value) => ({
-          message: $t('ui.formRules.alreadyExists', [
-            $t('system.dept.deptName'),
-            value,
-          ]),
-        }),
-      ),
+      .max(30, $t('ui.formRules.maxLength', [$t('system.dept.deptName'), 30])),
   },
   {
     component: 'ApiTreeSelect',
@@ -160,6 +147,7 @@ const [Modal, modalApi] = useVbenModal({
     if (valid) {
       modalApi.lock();
       const data = await formApi.getValues();
+      if (!data.pid) data.pid = '0'; // 初始值
       try {
         const { success, msg } = await (formData.value?.id
           ? updateDept(formData.value.id, data)
