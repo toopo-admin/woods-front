@@ -66,5 +66,15 @@
     "operation": "操作",
     "permissions": "权限",
     "setPermissions": "授权"
+  },
+  "user": {
+    "list": "用户列表",
+    "username": "用户名",
+    "password": "初始密码",
+    "nick_name": "昵称",
+    "avatar": "头像",
+    "phone": "联系方式",
+    "email": "邮箱",
+    "status": "状态"
   }
 }
