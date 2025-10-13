@@ -16,9 +16,9 @@ import { useVbenForm } from '#/adapter/form';
 import { getMenuList } from '#/api/system/menu';
 import { createRole, updateRole } from '#/api/system/role';
 import { $t } from '#/locales';
+import { showToast } from '#/utils/common';
 
 import { useFormSchema } from '../data';
-import { showToast } from '#/utils/common';
 
 const emits = defineEmits(['success']);
 

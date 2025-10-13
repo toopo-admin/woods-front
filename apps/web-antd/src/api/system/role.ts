@@ -70,4 +70,4 @@ async function isRoleCodeExist(
   });
 }
 
-export { createRole, deleteRole, getRoleList, updateRole, isRoleCodeExist };
+export { createRole, deleteRole, getRoleList, isRoleCodeExist, updateRole };
