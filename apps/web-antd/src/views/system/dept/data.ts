@@ -47,7 +47,13 @@ export function useColumns(
       minWidth: 305,
     },
     {
-      cellRender: { name: 'CellTag' },
+      cellRender: {
+        name: 'CellTag',
+        options: [
+          { color: 'success', label: $t('common.enabled'), value: 1 },
+          { color: 'error', label: $t('common.disabled'), value: 2 },
+        ],
+      },
       field: 'status',
       title: $t('system.dept.status'),
       minWidth: 200,

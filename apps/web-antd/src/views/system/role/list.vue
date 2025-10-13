@@ -25,9 +25,9 @@ const [FormDrawer, formDrawerApi] = useVbenDrawer({
 
 const [Grid, gridApi] = useVbenVxeGrid({
   formOptions: {
-    fieldMappingTime: [['createTime', ['startTime', 'endTime']]],
     schema: useGridFormSchema(),
     submitOnChange: true,
+    showCollapseButton: false,
   },
   gridOptions: {
     columns: useColumns(onActionClick, onStatusChange),
@@ -102,15 +102,15 @@ async function onStatusChange(
   row: SystemRoleApi.SystemRole,
 ) {
   const status: Recordable<string> = {
-    0: '禁用',
     1: '启用',
+    2: '禁用',
   };
   try {
     await confirm(
       `你要将${row.name}的状态切换为 【${status[newStatus.toString()]}】 吗？`,
       `切换状态`,
     );
-    await updateRole(row.id, { status: newStatus });
+    await updateRole(row.id, { enable: newStatus });
     return true;
   } catch {
     return false;
@@ -157,6 +157,6 @@ function onCreate() {
         </Button>
       </template>
     </Grid>
-    <FormDrawer />
+    <FormDrawer @success="onRefresh" />
   </Page>
 </template>

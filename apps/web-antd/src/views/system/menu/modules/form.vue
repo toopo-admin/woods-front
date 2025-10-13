@@ -29,7 +29,7 @@ import { showToast } from '#/utils/common';
 
 import { getMenuTypeOptions } from '../data';
 
-const emit = defineEmits<{
+const emits = defineEmits<{
   success: [];
 }>();
 const formData = ref<SystemMenuApi.SystemMenu>();
@@ -497,7 +497,7 @@ async function onSubmit() {
       });
       if (success) {
         drawerApi.close();
-        emit('success');
+        emits('success');
       }
     } finally {
       drawerApi.unlock();

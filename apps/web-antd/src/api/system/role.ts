@@ -6,10 +6,12 @@ export namespace SystemRoleApi {
   export interface SystemRole {
     [key: string]: any;
     id: string;
-    name: string;
-    permissions: string[];
+    roleCode: string;
+    roleName: string;
+    permissions: string[]; // 角色权限
     remark?: string;
-    status: 0 | 1;
+    createTime?: string;
+    enable: 1 | 2; // 1-启用，2-禁用
   }
 }
 
@@ -19,7 +21,7 @@ export namespace SystemRoleApi {
 async function getRoleList(params: Recordable<any>) {
   return requestClient.get<Array<SystemRoleApi.SystemRole>>(
     '/system/role/list',
-    { params },
+    { params, responseReturn: 'data' },
   );
 }
 
@@ -28,7 +30,7 @@ async function getRoleList(params: Recordable<any>) {
  * @param data 角色数据
  */
 async function createRole(data: Omit<SystemRoleApi.SystemRole, 'id'>) {
-  return requestClient.post('/system/role', data);
+  return requestClient.post('/system/role/create', data);
 }
 
 /**
@@ -41,7 +43,8 @@ async function updateRole(
   id: string,
   data: Omit<SystemRoleApi.SystemRole, 'id'>,
 ) {
-  return requestClient.put(`/system/role/${id}`, data);
+  data.id = id;
+  return requestClient.post('/system/role/update', data);
 }
 
 /**
@@ -49,7 +52,22 @@ async function updateRole(
  * @param id 角色 ID
  */
 async function deleteRole(id: string) {
-  return requestClient.delete(`/system/role/${id}`);
+  return requestClient.post('/system/dept/delete', { id });
 }
 
-export { createRole, deleteRole, getRoleList, updateRole };
+/**
+ * 校验角色代码是否存在
+ * @param id 表id
+ * @param roleCode 角色代码
+ */
+async function isRoleCodeExist(
+  roleCode: string,
+  id?: SystemRoleApi.SystemRole['id'],
+) {
+  return requestClient.get('/system/role/code-exist', {
+    params: { id, roleCode },
+    responseReturn: 'data',
+  });
+}
+
+export { createRole, deleteRole, getRoleList, updateRole, isRoleCodeExist };

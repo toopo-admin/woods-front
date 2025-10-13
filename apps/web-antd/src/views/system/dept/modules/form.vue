@@ -23,7 +23,7 @@ import {
 import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
 
-const emit = defineEmits<{
+const emits = defineEmits<{
   success: [];
 }>();
 const formData = ref<SystemDeptApi.SystemDept>();
@@ -158,7 +158,7 @@ const [Modal, modalApi] = useVbenModal({
         });
         if (success) {
           modalApi.close();
-          emit('success');
+          emits('success');
         }
       } finally {
         modalApi.lock(false);

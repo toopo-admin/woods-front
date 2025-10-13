@@ -18,6 +18,7 @@ import { createRole, updateRole } from '#/api/system/role';
 import { $t } from '#/locales';
 
 import { useFormSchema } from '../data';
+import { showToast } from '#/utils/common';
 
 const emits = defineEmits(['success']);
 
@@ -39,9 +40,15 @@ const [Drawer, drawerApi] = useVbenDrawer({
     const values = await formApi.getValues();
     drawerApi.lock();
     (id.value ? updateRole(id.value, values) : createRole(values))
-      .then(() => {
-        emits('success');
-        drawerApi.close();
+      .then(({ success, msg }) => {
+        showToast({
+          type: success ? 'success' : 'error',
+          content: msg,
+        });
+        if (success) {
+          drawerApi.close();
+          emits('success');
+        }
       })
       .catch(() => {
         drawerApi.unlock();

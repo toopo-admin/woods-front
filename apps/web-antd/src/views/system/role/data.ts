@@ -29,7 +29,7 @@ export function useFormSchema(): VbenFormSchema[] {
         optionType: 'button',
       },
       defaultValue: 1,
-      fieldName: 'status',
+      fieldName: 'enable',
       label: $t('system.role.status'),
     },
     {
@@ -51,38 +51,15 @@ export function useGridFormSchema(): VbenFormSchema[] {
   return [
     {
       component: 'Input',
-      fieldName: 'role_code',
+      fieldName: 'roleCode',
       componentProps: { allowClear: true },
       label: $t('system.role.roleCode'),
     },
     {
       component: 'Input',
-      fieldName: 'role_name',
+      fieldName: 'roleName',
       componentProps: { allowClear: true },
       label: $t('system.role.roleName'),
-    },
-    {
-      component: 'Select',
-      componentProps: {
-        allowClear: true,
-        options: [
-          { label: $t('common.enabled'), value: 1 },
-          { label: $t('common.disabled'), value: 0 },
-        ],
-      },
-      fieldName: 'status',
-      label: $t('system.role.status'),
-    },
-    {
-      component: 'Input',
-      fieldName: 'remark',
-      componentProps: { allowClear: true },
-      label: $t('system.role.remark'),
-    },
-    {
-      component: 'RangePicker',
-      fieldName: 'createTime',
-      label: $t('system.role.createTime'),
     },
   ];
 }
@@ -93,23 +70,23 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
 ): VxeTableGridOptions['columns'] {
   return [
     {
-      field: 'role_code',
+      field: 'roleCode',
       title: $t('system.role.roleCode'),
-      width: 200,
+      width: 305,
     },
     {
-      field: 'role_name',
+      field: 'roleName',
       title: $t('system.role.roleName'),
-      width: 200,
+      width: 305,
     },
     {
       cellRender: {
         attrs: { beforeChange: onStatusChange },
         name: onStatusChange ? 'CellSwitch' : 'CellTag',
       },
-      field: 'status',
+      field: 'enable',
       title: $t('system.role.status'),
-      width: 165,
+      width: 200,
     },
     {
       field: 'remark',
@@ -134,7 +111,7 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
       field: 'operation',
       fixed: 'right',
       title: $t('system.role.operation'),
-      width: 130,
+      width: 200,
     },
   ];
 }

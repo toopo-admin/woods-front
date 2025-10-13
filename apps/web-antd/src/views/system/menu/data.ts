@@ -93,7 +93,13 @@ export function useColumns(
       title: $t('system.menu.component'),
     },
     {
-      cellRender: { name: 'CellTag' },
+      cellRender: {
+        name: 'CellTag',
+        options: [
+          { color: 'success', label: $t('common.enabled'), value: 1 },
+          { color: 'error', label: $t('common.disabled'), value: 2 },
+        ],
+      },
       field: 'status',
       title: $t('system.menu.status'),
       width: 200,
