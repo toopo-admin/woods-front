@@ -1,10 +1,11 @@
 import type { VbenFormSchema } from '#/adapter/form';
 import type { OnActionClickFn, VxeTableGridOptions } from '#/adapter/vxe-table';
-import { isUserNameExist, type SystemUserApi } from '#/api/system/user';
+import type { SystemUserApi } from '#/api/system/user';
 
 import { ref } from 'vue';
 
 import { z } from '#/adapter/form';
+import { isUserNameExist } from '#/api/system/user';
 import { $t } from '#/locales';
 
 const formData = ref<SystemUserApi.SystemUser>();
