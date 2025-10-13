@@ -14,10 +14,10 @@ import { Button, message, Modal } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteRole, getRoleList, updateRole } from '#/api/system/role';
 import { $t } from '#/locales';
+import { showToast } from '#/utils/common';
 
 import { useColumns, useGridFormSchema } from './data';
 import Form from './modules/form.vue';
-import { showToast } from '#/utils/common';
 
 const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: Form,

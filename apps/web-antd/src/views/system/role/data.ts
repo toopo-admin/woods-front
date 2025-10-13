@@ -1,9 +1,12 @@
-import { z, type VbenFormSchema } from '#/adapter/form';
+import type { VbenFormSchema } from '#/adapter/form';
 import type { OnActionClickFn, VxeTableGridOptions } from '#/adapter/vxe-table';
-import { isRoleCodeExist, type SystemRoleApi } from '#/api/system/role';
+import type { SystemRoleApi } from '#/api/system/role';
 
-import { $t } from '#/locales';
 import { ref } from 'vue';
+
+import { z } from '#/adapter/form';
+import { isRoleCodeExist } from '#/api/system/role';
+import { $t } from '#/locales';
 
 const formData = ref<SystemRoleApi.SystemRole>();
 
