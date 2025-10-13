@@ -17,6 +17,7 @@ import { $t } from '#/locales';
 
 import { useColumns, useGridFormSchema } from './data';
 import Form from './modules/form.vue';
+import { showToast } from '#/utils/common';
 
 const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: Form,
@@ -107,7 +108,7 @@ async function onStatusChange(
   };
   try {
     await confirm(
-      `你要将${row.name}的状态切换为 【${status[newStatus.toString()]}】 吗？`,
+      `确定将${row.roleName}的状态切换为${status[newStatus.toString()]}吗？`,
       `切换状态`,
     );
     await updateRole(row.id, { enable: newStatus });
@@ -128,12 +129,13 @@ function onDelete(row: SystemRoleApi.SystemRole) {
     key: 'action_process_msg',
   });
   deleteRole(row.id)
-    .then(() => {
-      message.success({
-        content: $t('ui.actionMessage.deleteSuccess', [row.name]),
-        key: 'action_process_msg',
+    .then((res: { msg: any; success: any }) => {
+      showToast({
+        type: res.success ? 'success' : 'error',
+        content: res.msg,
       });
-      onRefresh();
+      if (res.success) onRefresh();
+      hideLoading();
     })
     .catch(() => {
       hideLoading();

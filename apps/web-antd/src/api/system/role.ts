@@ -52,7 +52,7 @@ async function updateRole(
  * @param id 角色 ID
  */
 async function deleteRole(id: string) {
-  return requestClient.post('/system/dept/delete', { id });
+  return requestClient.post('/system/role/delete', { id });
 }
 
 /**

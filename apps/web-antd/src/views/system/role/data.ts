@@ -1,8 +1,11 @@
-import type { VbenFormSchema } from '#/adapter/form';
+import { z, type VbenFormSchema } from '#/adapter/form';
 import type { OnActionClickFn, VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { SystemRoleApi } from '#/api/system/role';
+import { isRoleCodeExist, type SystemRoleApi } from '#/api/system/role';
 
 import { $t } from '#/locales';
+import { ref } from 'vue';
+
+const formData = ref<SystemRoleApi.SystemRole>();
 
 export function useFormSchema(): VbenFormSchema[] {
   return [
@@ -10,7 +13,22 @@ export function useFormSchema(): VbenFormSchema[] {
       component: 'Input',
       fieldName: 'roleCode',
       label: $t('system.role.roleCode'),
-      rules: 'required',
+      rules: z
+        .string()
+        .min(2, $t('ui.formRules.minLength', [$t('system.role.roleCode'), 2]))
+        .max(30, $t('ui.formRules.maxLength', [$t('system.role.roleCode'), 30]))
+        .refine(
+          async (value: string) => {
+            const res = await isRoleCodeExist(value, formData.value?.id);
+            return res.valid;
+          },
+          (value) => ({
+            message: $t('ui.formRules.alreadyExists', [
+              $t('system.role.roleCode'),
+              value,
+            ]),
+          }),
+        ),
     },
     {
       component: 'Input',
@@ -83,6 +101,7 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
       cellRender: {
         attrs: { beforeChange: onStatusChange },
         name: onStatusChange ? 'CellSwitch' : 'CellTag',
+        props: { unCheckedValue: 2 },
       },
       field: 'enable',
       title: $t('system.role.status'),
@@ -96,7 +115,7 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
     {
       field: 'createTime',
       title: $t('system.role.createTime'),
-      width: 200,
+      width: 250,
     },
     {
       align: 'center',
