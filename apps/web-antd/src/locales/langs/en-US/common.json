@@ -1,9 +1,9 @@
 {
-  "createUser": "创建人",
-  "createTime": "创建时间",
-  "updateUser": "更新人",
-  "updateTime": "最后更新时间",
-  "status": "状态",
-  "remark": "备注",
-  "operation": "操作"
+  "createUser": "Create User",
+  "createTime": "Create Time",
+  "updateUser": "Update User",
+  "updateTime": "Update Time",
+  "status": "Status",
+  "remark": "Remark",
+  "operation": "Operation"
 }

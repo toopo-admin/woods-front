@@ -34,10 +34,23 @@ export function useFormSchema(): VbenFormSchema[] {
         ),
     },
     {
+      component: 'InputPassword',
+      fieldName: 'password',
+      label: $t('system.user.password'),
+      componentProps: {
+        placeholder: $t('system.user.defaultPassword'),
+      },
+    },
+    {
       component: 'Input',
-      fieldName: 'roleName',
-      label: $t('system.role.roleName'),
+      fieldName: 'nickName',
+      label: $t('system.user.nickName'),
       rules: 'required',
+    },
+    {
+      component: 'Upload',
+      fieldName: 'avatar',
+      label: $t('system.user.avatar'),
     },
     {
       component: 'RadioGroup',
@@ -51,19 +64,17 @@ export function useFormSchema(): VbenFormSchema[] {
       },
       defaultValue: 1,
       fieldName: 'enable',
-      label: $t('system.role.status'),
-    },
-    {
-      component: 'Textarea',
-      fieldName: 'remark',
-      label: $t('system.role.remark'),
+      label: $t('common.status'),
     },
     {
       component: 'Input',
-      fieldName: 'permissions',
-      formItemClass: 'items-start',
-      label: $t('system.role.setPermissions'),
-      modelPropName: 'modelValue',
+      fieldName: 'phone',
+      label: $t('system.user.phone'),
+    },
+    {
+      component: 'Input',
+      fieldName: 'email',
+      label: $t('system.user.email'),
     },
   ];
 }
@@ -72,15 +83,9 @@ export function useGridFormSchema(): VbenFormSchema[] {
   return [
     {
       component: 'Input',
-      fieldName: 'roleCode',
+      fieldName: 'username',
       componentProps: { allowClear: true },
-      label: $t('system.role.roleCode'),
-    },
-    {
-      component: 'Input',
-      fieldName: 'roleName',
-      componentProps: { allowClear: true },
-      label: $t('system.role.roleName'),
+      label: $t('system.user.username'),
     },
   ];
 }
@@ -91,14 +96,29 @@ export function useColumns<T = SystemUserApi.SystemUser>(
 ): VxeTableGridOptions['columns'] {
   return [
     {
-      field: 'roleCode',
-      title: $t('system.role.roleCode'),
-      width: 305,
+      field: 'avatar',
+      title: $t('system.user.avatar'),
+      width: 200,
     },
     {
-      field: 'roleName',
-      title: $t('system.role.roleName'),
-      width: 305,
+      field: 'username',
+      title: $t('system.user.username'),
+      width: 200,
+    },
+    {
+      field: 'nickName',
+      title: $t('system.user.nickName'),
+      width: 250,
+    },
+    {
+      field: 'phone',
+      title: $t('system.user.phone'),
+      width: 250,
+    },
+    {
+      field: 'email',
+      title: $t('system.user.email'),
+      width: 200,
     },
     {
       cellRender: {
@@ -107,17 +127,12 @@ export function useColumns<T = SystemUserApi.SystemUser>(
         props: { unCheckedValue: 2 },
       },
       field: 'enable',
-      title: $t('system.role.status'),
+      title: $t('common.status'),
       width: 200,
     },
     {
-      field: 'remark',
-      minWidth: 200,
-      title: $t('system.role.remark'),
-    },
-    {
       field: 'createTime',
-      title: $t('system.role.createTime'),
+      title: $t('common.createTime'),
       width: 250,
     },
     {
@@ -125,14 +140,14 @@ export function useColumns<T = SystemUserApi.SystemUser>(
       cellRender: {
         attrs: {
           nameField: 'name',
-          nameTitle: $t('system.role.name'),
+          nameTitle: $t('system.user.name'),
           onClick: onActionClick,
         },
         name: 'CellOperation',
       },
       field: 'operation',
       fixed: 'right',
-      title: $t('system.role.operation'),
+      title: $t('common.operation'),
       width: 200,
     },
   ];

@@ -13,15 +13,6 @@ const routes: RouteRecordRaw[] = [
     path: '/system',
     children: [
       {
-        path: '/system/role',
-        name: 'SystemRole',
-        meta: {
-          icon: 'mdi:account-group',
-          title: $t('system.role.title'),
-        },
-        component: () => import('#/views/system/role/list.vue'),
-      },
-      {
         path: '/system/menu',
         name: 'SystemMenu',
         meta: {
@@ -30,6 +21,25 @@ const routes: RouteRecordRaw[] = [
         },
         component: () => import('#/views/system/menu/list.vue'),
       },
+      {
+        path: '/system/user',
+        name: 'SystemUser',
+        meta: {
+          icon: 'carbon:user-multiple',
+          title: $t('system.user.title'),
+        },
+        component: () => import('#/views/system/user/list.vue'),
+      },
+      {
+        path: '/system/role',
+        name: 'SystemRole',
+        meta: {
+          icon: 'mdi:account-group',
+          title: $t('system.role.title'),
+        },
+        component: () => import('#/views/system/role/list.vue'),
+      },
+
       {
         path: '/system/dept',
         name: 'SystemDept',

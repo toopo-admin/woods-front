@@ -3,7 +3,7 @@ import type { DataNode } from 'ant-design-vue/es/tree';
 
 import type { Recordable } from '@vben/types';
 
-import type { SystemRoleApi } from '#/api/system/role';
+import type { SystemUserApi } from '#/api/system/user';
 
 import { computed, ref } from 'vue';
 
@@ -14,7 +14,7 @@ import { Spin } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { getMenuList } from '#/api/system/menu';
-import { createRole, updateRole } from '#/api/system/role';
+import { createUser, updateUser } from '#/api/system/user';
 import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
 
@@ -22,7 +22,7 @@ import { useFormSchema } from '../data';
 
 const emits = defineEmits(['success']);
 
-const formData = ref<SystemRoleApi.SystemRole>();
+const formData = ref<SystemUserApi.SystemUser>();
 
 const [Form, formApi] = useVbenForm({
   schema: useFormSchema(),
@@ -39,7 +39,8 @@ const [Drawer, drawerApi] = useVbenDrawer({
     if (!valid) return;
     const values = await formApi.getValues();
     drawerApi.lock();
-    (id.value ? updateRole(id.value, values) : createRole(values))
+    if (!id.value && !values.password) values.password = 123456; // 新增用户，设置密码初始值
+    (id.value ? updateUser(id.value, values) : createUser(values))
       .then(({ success, msg }) => {
         showToast({
           type: success ? 'success' : 'error',
@@ -56,7 +57,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   onOpenChange(isOpen) {
     if (isOpen) {
-      const data = drawerApi.getData<SystemRoleApi.SystemRole>();
+      const data = drawerApi.getData<SystemUserApi.SystemUser>();
       formApi.resetForm();
       if (data) {
         formData.value = data;
@@ -85,8 +86,8 @@ async function loadPermissions() {
 
 const getDrawerTitle = computed(() => {
   return formData.value?.id
-    ? $t('common.edit', $t('system.role.name'))
-    : $t('common.create', $t('system.role.name'));
+    ? $t('common.edit', $t('system.user.name'))
+    : $t('common.create', $t('system.user.name'));
 });
 
 function getNodeClass(node: Recordable<any>) {

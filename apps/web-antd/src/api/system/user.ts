@@ -23,7 +23,7 @@ export namespace SystemUserApi {
 async function getUserList(params: Recordable<any>) {
   return requestClient.get<Array<SystemUserApi.SystemUser>>(
     '/system/user/list',
-    { params },
+    { params, responseReturn: 'data' },
   );
 }
 
@@ -60,14 +60,14 @@ async function deleteUser(id: string) {
 /**
  * 校验用户登录名是否存在
  * @param id 表id
- * @param roleCode 用户登录名
+ * @param username 用户登录名
  */
 async function isUserNameExist(
-  roleCode: string,
+  username: string,
   id?: SystemUserApi.SystemUser['id'],
 ) {
-  return requestClient.get('/system/user/code-exist', {
-    params: { id, roleCode },
+  return requestClient.get('/system/user/name-exist', {
+    params: { id, username },
     responseReturn: 'data',
   });
 }

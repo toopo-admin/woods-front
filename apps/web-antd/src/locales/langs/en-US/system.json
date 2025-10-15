@@ -64,5 +64,17 @@
     "operation": "Operation",
     "permissions": "Permissions",
     "setPermissions": "Permissions"
+  },
+  "user": {
+    "title": "User Management",
+    "list": "User List",
+    "name": "User",
+    "username": "User",
+    "password": "Password",
+    "defaultPassword": "Default Password 123456",
+    "nickName": "Nick Name",
+    "avatar": "Avatar",
+    "phone": "Phone",
+    "email": "Email"
   }
 }

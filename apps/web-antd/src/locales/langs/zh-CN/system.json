@@ -68,13 +68,15 @@
     "setPermissions": "授权"
   },
   "user": {
+    "title": "用户管理",
     "list": "用户列表",
+    "name": "用户",
     "username": "用户名",
-    "password": "初始密码",
-    "nick_name": "昵称",
+    "password": "密码",
+    "defaultPassword": "默认初始密码123456",
+    "nickName": "昵称",
     "avatar": "头像",
     "phone": "联系方式",
-    "email": "邮箱",
-    "status": "状态"
+    "email": "邮箱"
   }
 }
