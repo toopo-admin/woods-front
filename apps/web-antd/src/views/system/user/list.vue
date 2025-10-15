@@ -7,7 +7,7 @@ import type {
 } from '#/adapter/vxe-table';
 import type { SystemUserApi } from '#/api/system/user';
 
-import { Page, useVbenDrawer } from '@vben/common-ui';
+import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 
 import { Button, message, Modal } from 'ant-design-vue';
 
@@ -17,11 +17,25 @@ import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
 
 import { useColumns, useGridFormSchema } from './data';
+import Auth from './modules/auth.vue';
 import Form from './modules/form.vue';
+import Password from './modules/password.vue';
 
 const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: Form,
   destroyOnClose: true,
+});
+
+const [AuthModal, authModalApi] = useVbenModal({
+  connectedComponent: Auth,
+  destroyOnClose: true,
+  fullscreenButton: false,
+});
+
+const [PasswordModal, passwordModalApi] = useVbenModal({
+  connectedComponent: Password,
+  destroyOnClose: true,
+  fullscreenButton: false,
 });
 
 const [Grid, gridApi] = useVbenVxeGrid({
@@ -59,14 +73,25 @@ const [Grid, gridApi] = useVbenVxeGrid({
   } as VxeTableGridOptions<SystemUserApi.SystemUser>,
 });
 
-function onActionClick(e: OnActionClickParams<SystemUserApi.SystemUser>) {
-  switch (e.code) {
+function onActionClick({
+  code,
+  row,
+}: OnActionClickParams<SystemUserApi.SystemUser>) {
+  switch (code) {
+    case 'auth': {
+      onAuth(row);
+      break;
+    }
     case 'delete': {
-      onDelete(e.row);
+      onDelete(row);
       break;
     }
     case 'edit': {
-      onEdit(e.row);
+      onEdit(row);
+      break;
+    }
+    case 'password': {
+      onPassword(row);
       break;
     }
   }
@@ -149,6 +174,14 @@ function onRefresh() {
 function onCreate() {
   formDrawerApi.setData({}).open();
 }
+
+function onAuth(row: SystemUserApi.SystemUser) {
+  authModalApi.setData(row).open();
+}
+
+function onPassword(row: SystemUserApi.SystemUser) {
+  passwordModalApi.setData(row).open();
+}
 </script>
 <template>
   <Page auto-content-height>
@@ -160,5 +193,7 @@ function onCreate() {
       </template>
     </Grid>
     <FormDrawer @success="onRefresh" />
+    <AuthModal @success="onRefresh" />
+    <PasswordModal />
   </Page>
 </template>

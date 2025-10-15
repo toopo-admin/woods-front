@@ -187,6 +187,6 @@ const getModelTitle = computed(() =>
 </script>
 <template>
   <Modal :title="getModelTitle">
-    <Form class="mx-1" />
+    <Form class="mx-4" />
   </Modal>
 </template>

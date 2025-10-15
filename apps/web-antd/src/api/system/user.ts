@@ -72,4 +72,19 @@ async function isUserNameExist(
   });
 }
 
-export { createUser, deleteUser, getUserList, isUserNameExist, updateUser };
+/**
+ * 重置用户密码
+ * @param data 用户密码
+ */
+async function handleResetPassword(data: any) {
+  return requestClient.post('/system/user/reset-password', data);
+}
+
+export {
+  createUser,
+  deleteUser,
+  getUserList,
+  handleResetPassword,
+  isUserNameExist,
+  updateUser,
+};
