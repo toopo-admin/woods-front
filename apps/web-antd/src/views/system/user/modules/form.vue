@@ -39,7 +39,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
     if (!valid) return;
     const values = await formApi.getValues();
     drawerApi.lock();
-    if (!id.value && !values.password) values.password = 123456; // 新增用户，设置密码初始值
+    if (!id.value && !values.password) values.password = '123456'; // 新增用户，设置密码初始值
     (id.value ? updateUser(id.value, values) : createUser(values))
       .then(({ success, msg }) => {
         showToast({
