@@ -7,25 +7,90 @@ import type { SystemUserApi } from '#/api/system/user';
 
 import { computed, ref } from 'vue';
 
-import { useVbenDrawer, VbenTree } from '@vben/common-ui';
+import { useVbenDrawer, VbenTree, z } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
 import { Spin } from 'ant-design-vue';
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm, type VbenFormSchema } from '#/adapter/form';
 import { getMenuList } from '#/api/system/menu';
-import { createUser, updateUser } from '#/api/system/user';
+import { createUser, isUserNameExist, updateUser } from '#/api/system/user';
 import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
-
-import { useFormSchema } from '../data';
 
 const emits = defineEmits(['success']);
 
 const formData = ref<SystemUserApi.SystemUser>();
 
+const formSchema: VbenFormSchema[] = [
+  {
+    component: 'Input',
+    fieldName: 'username',
+    label: $t('system.user.username'),
+    rules: z
+      .string()
+      .min(2, $t('ui.formRules.minLength', [$t('system.user.username'), 2]))
+      .max(30, $t('ui.formRules.maxLength', [$t('system.user.username'), 30]))
+      .refine(
+        async (value: string) => {
+          const res = await isUserNameExist(value, formData.value?.id);
+          return res.valid;
+        },
+        (value) => ({
+          message: $t('ui.formRules.alreadyExists', [
+            $t('system.user.username'),
+            value,
+          ]),
+        }),
+      ),
+  },
+  {
+    component: 'InputPassword',
+    fieldName: 'password',
+    label: $t('system.user.password'),
+    componentProps: {
+      placeholder: $t('system.user.defaultPassword'),
+    },
+  },
+  {
+    component: 'Input',
+    fieldName: 'nickName',
+    label: $t('system.user.nickName'),
+    rules: 'required',
+  },
+  {
+    component: 'Upload',
+    fieldName: 'avatar',
+    label: $t('system.user.avatar'),
+  },
+  {
+    component: 'RadioGroup',
+    componentProps: {
+      buttonStyle: 'solid',
+      options: [
+        { label: $t('common.enabled'), value: 1 },
+        { label: $t('common.disabled'), value: 2 },
+      ],
+      optionType: 'button',
+    },
+    defaultValue: 1,
+    fieldName: 'enable',
+    label: $t('common.status'),
+  },
+  {
+    component: 'Input',
+    fieldName: 'phone',
+    label: $t('system.user.phone'),
+  },
+  {
+    component: 'Input',
+    fieldName: 'email',
+    label: $t('system.user.email'),
+  },
+];
+
 const [Form, formApi] = useVbenForm({
-  schema: useFormSchema(),
+  schema: formSchema,
   showDefaultActions: false,
 });
 

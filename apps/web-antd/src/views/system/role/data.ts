@@ -2,71 +2,7 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { OnActionClickFn, VxeTableGridOptions } from '#/adapter/vxe-table';
 import type { SystemRoleApi } from '#/api/system/role';
 
-import { ref } from 'vue';
-
-import { z } from '#/adapter/form';
-import { isRoleCodeExist } from '#/api/system/role';
 import { $t } from '#/locales';
-
-const formData = ref<SystemRoleApi.SystemRole>();
-
-export function useFormSchema(): VbenFormSchema[] {
-  return [
-    {
-      component: 'Input',
-      fieldName: 'roleCode',
-      label: $t('system.role.roleCode'),
-      rules: z
-        .string()
-        .min(2, $t('ui.formRules.minLength', [$t('system.role.roleCode'), 2]))
-        .max(30, $t('ui.formRules.maxLength', [$t('system.role.roleCode'), 30]))
-        .refine(
-          async (value: string) => {
-            const res = await isRoleCodeExist(value, formData.value?.id);
-            return res.valid;
-          },
-          (value) => ({
-            message: $t('ui.formRules.alreadyExists', [
-              $t('system.role.roleCode'),
-              value,
-            ]),
-          }),
-        ),
-    },
-    {
-      component: 'Input',
-      fieldName: 'roleName',
-      label: $t('system.role.roleName'),
-      rules: 'required',
-    },
-    {
-      component: 'RadioGroup',
-      componentProps: {
-        buttonStyle: 'solid',
-        options: [
-          { label: $t('common.enabled'), value: 1 },
-          { label: $t('common.disabled'), value: 2 },
-        ],
-        optionType: 'button',
-      },
-      defaultValue: 1,
-      fieldName: 'enable',
-      label: $t('system.role.status'),
-    },
-    {
-      component: 'Textarea',
-      fieldName: 'remark',
-      label: $t('system.role.remark'),
-    },
-    {
-      component: 'Input',
-      fieldName: 'permissions',
-      formItemClass: 'items-start',
-      label: $t('system.role.setPermissions'),
-      modelPropName: 'modelValue',
-    },
-  ];
-}
 
 export function useGridFormSchema(): VbenFormSchema[] {
   return [
@@ -90,15 +26,18 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
   onStatusChange?: (newStatus: any, row: T) => PromiseLike<boolean | undefined>,
 ): VxeTableGridOptions['columns'] {
   return [
+    { title: '序号', type: 'seq', width: 50 },
     {
       field: 'roleCode',
       title: $t('system.role.roleCode'),
       width: 305,
+      sortable: true,
     },
     {
       field: 'roleName',
       title: $t('system.role.roleName'),
       width: 305,
+      sortable: true,
     },
     {
       cellRender: {
@@ -117,8 +56,10 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
     },
     {
       field: 'createTime',
+      formatter: 'formatDateTime',
       title: $t('system.role.createTime'),
       width: 250,
+      sortable: true,
     },
     {
       align: 'center',

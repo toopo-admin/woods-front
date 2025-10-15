@@ -7,25 +7,79 @@ import type { SystemRoleApi } from '#/api/system/role';
 
 import { computed, ref } from 'vue';
 
-import { useVbenDrawer, VbenTree } from '@vben/common-ui';
+import { useVbenDrawer, VbenTree, z } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
 import { Spin } from 'ant-design-vue';
 
-import { useVbenForm } from '#/adapter/form';
+import { useVbenForm, type VbenFormSchema } from '#/adapter/form';
 import { getMenuList } from '#/api/system/menu';
-import { createRole, updateRole } from '#/api/system/role';
+import { createRole, isRoleCodeExist, updateRole } from '#/api/system/role';
 import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
-
-import { useFormSchema } from '../data';
 
 const emits = defineEmits(['success']);
 
 const formData = ref<SystemRoleApi.SystemRole>();
 
+const formSchema: VbenFormSchema[] = [
+  {
+    component: 'Input',
+    fieldName: 'roleCode',
+    label: $t('system.role.roleCode'),
+    rules: z
+      .string()
+      .min(2, $t('ui.formRules.minLength', [$t('system.role.roleCode'), 2]))
+      .max(30, $t('ui.formRules.maxLength', [$t('system.role.roleCode'), 30]))
+      .refine(
+        async (value: string) => {
+          const res = await isRoleCodeExist(value, formData.value?.id);
+          return res.valid;
+        },
+        (value) => ({
+          message: $t('ui.formRules.alreadyExists', [
+            $t('system.role.roleCode'),
+            value,
+          ]),
+        }),
+      ),
+  },
+  {
+    component: 'Input',
+    fieldName: 'roleName',
+    label: $t('system.role.roleName'),
+    rules: 'required',
+  },
+  {
+    component: 'RadioGroup',
+    componentProps: {
+      buttonStyle: 'solid',
+      options: [
+        { label: $t('common.enabled'), value: 1 },
+        { label: $t('common.disabled'), value: 2 },
+      ],
+      optionType: 'button',
+    },
+    defaultValue: 1,
+    fieldName: 'enable',
+    label: $t('system.role.status'),
+  },
+  {
+    component: 'Textarea',
+    fieldName: 'remark',
+    label: $t('system.role.remark'),
+  },
+  {
+    component: 'Input',
+    fieldName: 'permissions',
+    formItemClass: 'items-start',
+    label: $t('system.role.setPermissions'),
+    modelPropName: 'modelValue',
+  },
+];
+
 const [Form, formApi] = useVbenForm({
-  schema: useFormSchema(),
+  schema: formSchema,
   showDefaultActions: false,
 });
 
