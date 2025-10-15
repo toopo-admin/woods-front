@@ -3,6 +3,7 @@ import type { DataNode } from 'ant-design-vue/es/tree';
 
 import type { Recordable } from '@vben/types';
 
+import type { VbenFormSchema } from '#/adapter/form';
 import type { SystemUserApi } from '#/api/system/user';
 
 import { computed, ref } from 'vue';
@@ -12,7 +13,7 @@ import { IconifyIcon } from '@vben/icons';
 
 import { Spin } from 'ant-design-vue';
 
-import { useVbenForm, type VbenFormSchema } from '#/adapter/form';
+import { useVbenForm } from '#/adapter/form';
 import { getMenuList } from '#/api/system/menu';
 import { createUser, isUserNameExist, updateUser } from '#/api/system/user';
 import { $t } from '#/locales';
