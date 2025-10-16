@@ -26,17 +26,18 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
   onStatusChange?: (newStatus: any, row: T) => PromiseLike<boolean | undefined>,
 ): VxeTableGridOptions['columns'] {
   return [
-    { title: '序号', type: 'seq', width: 50 },
+    { type: 'checkbox', width: 50 },
+    { title: $t('common.no'), type: 'seq', width: 65 },
     {
       field: 'roleCode',
       title: $t('system.role.roleCode'),
-      width: 305,
+      minWidth: 305,
       sortable: true,
     },
     {
       field: 'roleName',
       title: $t('system.role.roleName'),
-      width: 305,
+      minWidth: 305,
       sortable: true,
     },
     {
@@ -47,7 +48,7 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
       },
       field: 'enable',
       title: $t('system.role.status'),
-      width: 200,
+      minWidth: 200,
     },
     {
       field: 'remark',
@@ -58,7 +59,7 @@ export function useColumns<T = SystemRoleApi.SystemRole>(
       field: 'createTime',
       formatter: 'formatDateTime',
       title: $t('system.role.createTime'),
-      width: 250,
+      minWidth: 250,
       sortable: true,
     },
     {

@@ -80,11 +80,30 @@ async function handleResetPassword(data: any) {
   return requestClient.post('/system/user/reset-password', data);
 }
 
+/**
+ * 获取用户授权角色下拉选项
+ */
+async function getUserAuthList() {
+  return requestClient.get('/system/role/auth-list', {
+    responseReturn: 'data',
+  });
+}
+
+/**
+ * 用户权限，授权
+ * @param data 用户权限
+ */
+async function handleUserAuthorize(data: any) {
+  return requestClient.post('/system/user/authorize', data);
+}
+
 export {
   createUser,
   deleteUser,
+  getUserAuthList,
   getUserList,
   handleResetPassword,
+  handleUserAuthorize,
   isUserNameExist,
   updateUser,
 };

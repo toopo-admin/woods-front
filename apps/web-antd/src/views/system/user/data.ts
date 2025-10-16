@@ -20,23 +20,24 @@ export function useColumns<T = SystemUserApi.SystemUser>(
   onStatusChange?: (newStatus: any, row: T) => PromiseLike<boolean | undefined>,
 ): VxeTableGridOptions['columns'] {
   return [
-    { title: '序号', type: 'seq', width: 50 },
+    { type: 'checkbox', width: 50 },
+    { title: $t('common.no'), type: 'seq', width: 65 },
     {
       cellRender: { name: 'CellImage' },
       field: 'avatar',
       title: $t('system.user.avatar'),
-      width: 150,
+      width: 84,
     },
     {
       field: 'username',
       title: $t('system.user.username'),
-      width: 200,
+      minWidth: 200,
       sortable: true,
     },
     {
       field: 'nickName',
       title: $t('system.user.nickName'),
-      width: 250,
+      minWidth: 250,
       sortable: true,
     },
     {
@@ -47,23 +48,23 @@ export function useColumns<T = SystemUserApi.SystemUser>(
       },
       field: 'enable',
       title: $t('common.status'),
-      width: 200,
+      minWidth: 200,
     },
     {
       field: 'phone',
       title: $t('system.user.phone'),
-      width: 200,
+      minWidth: 200,
     },
     {
       field: 'email',
       title: $t('system.user.email'),
-      width: 200,
+      minWidth: 200,
     },
     {
       field: 'createTime',
       formatter: 'formatDateTime',
       title: $t('common.createTime'),
-      width: 200,
+      minWidth: 200,
       sortable: true,
     },
     {
@@ -78,11 +79,11 @@ export function useColumns<T = SystemUserApi.SystemUser>(
         options: [
           {
             code: 'auth',
-            text: '设置权限',
+            text: $t('system.user.authorize'),
           },
           {
             code: 'password',
-            text: '重置密码',
+            text: $t('system.user.resetPassword'),
           },
           'edit', // 默认的编辑按钮
           {

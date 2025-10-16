@@ -5,5 +5,7 @@
   "updateTime": "Update Time",
   "status": "Status",
   "remark": "Remark",
+  "no": "No",
+  "authorize": "Authorize",
   "operation": "Operation"
 }

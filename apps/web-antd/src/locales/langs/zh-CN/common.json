@@ -5,5 +5,7 @@
   "updateTime": "最后更新时间",
   "status": "状态",
   "remark": "备注",
+  "no": "序号",
+  "authorize": "授权",
   "operation": "操作"
 }

@@ -17,9 +17,9 @@ import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
 
 import { useColumns, useGridFormSchema } from './data';
-import Auth from './modules/auth.vue';
 import Form from './modules/form.vue';
 import Password from './modules/password.vue';
+import Permission from './modules/permission.vue';
 
 const [FormDrawer, formDrawerApi] = useVbenDrawer({
   connectedComponent: Form,
@@ -27,7 +27,7 @@ const [FormDrawer, formDrawerApi] = useVbenDrawer({
 });
 
 const [AuthModal, authModalApi] = useVbenModal({
-  connectedComponent: Auth,
+  connectedComponent: Permission,
   destroyOnClose: true,
   fullscreenButton: false,
 });
@@ -61,6 +61,9 @@ const [Grid, gridApi] = useVbenVxeGrid({
     },
     rowConfig: {
       keyField: 'id',
+    },
+    cellConfig: {
+      height: 84,
     },
 
     toolbarConfig: {

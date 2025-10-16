@@ -11,7 +11,7 @@ import { handleResetPassword } from '#/api/system/user';
 import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
 
-const modelTitle = ref('修改密码');
+const modelTitle = ref($t('system.user.resetPassword'));
 
 const id = ref('');
 const formSchema: VbenFormSchema[] = [

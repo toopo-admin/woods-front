@@ -75,6 +75,8 @@
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "differentPassword": "Confirm Password Is Different",
+    "resetPassword": "Reset Password",
+    "authorize": "Authorize",
     "nickName": "Nick Name",
     "avatar": "Avatar",
     "phone": "Phone",

@@ -77,6 +77,8 @@
     "newPassword": "新密码",
     "confirmPassword": "确认密码",
     "differentPassword": "确认密码不一致",
+    "resetPassword": "重置密码",
+    "authorize": "设置权限",
     "nickName": "昵称",
     "avatar": "头像",
     "phone": "联系方式",

@@ -77,7 +77,7 @@ const schema: VbenFormSchema[] = [
         if (!input || input.length === 0) {
           return true;
         }
-        const deptName: string = node.deptName ?? '';
+        const deptName: string = node.label ?? '';
         if (!deptName) return false;
         return deptName.includes(input) || $t(deptName).includes(input);
       },
