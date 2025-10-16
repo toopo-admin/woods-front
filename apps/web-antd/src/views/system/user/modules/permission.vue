@@ -82,9 +82,9 @@ const [Modal, modalApi] = useVbenModal({
                 roleCode: item.roleCode,
                 roleName: item.roleName,
               }
-            : {};
+            : false;
         })
-        .filter((item) => item);
+        .filter(Boolean);
       try {
         const { success, msg } = await handleUserAuthorize({
           id: formData.value.id,
