@@ -111,9 +111,9 @@ async function getUserAuthList(params: Recordable<any>) {
 export {
   createUser,
   deleteUser,
+  getAuthRoleList,
   getUserAuthList,
   getUserList,
-  getAuthRoleList,
   handleResetPassword,
   handleUserAuthorize,
   isUserNameExist,
