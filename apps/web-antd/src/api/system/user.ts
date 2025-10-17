@@ -83,7 +83,7 @@ async function handleResetPassword(data: any) {
 /**
  * 获取用户授权角色下拉选项
  */
-async function getUserAuthList() {
+async function getAuthRoleList() {
   return requestClient.get('/system/role/auth-list', {
     responseReturn: 'data',
   });
@@ -97,11 +97,23 @@ async function handleUserAuthorize(data: any) {
   return requestClient.post('/system/user/authorize', data);
 }
 
+/**
+ * 获取用户角色权限
+ * @return data 用户角色权限
+ */
+async function getUserAuthList(params: Recordable<any>) {
+  return requestClient.get('/system/user/user-auth', {
+    params,
+    responseReturn: 'data',
+  });
+}
+
 export {
   createUser,
   deleteUser,
   getUserAuthList,
   getUserList,
+  getAuthRoleList,
   handleResetPassword,
   handleUserAuthorize,
   isUserNameExist,

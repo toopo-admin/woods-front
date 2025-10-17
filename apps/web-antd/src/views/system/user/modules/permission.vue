@@ -9,7 +9,11 @@ import { ref } from 'vue';
 import { useVbenModal } from '@vben/common-ui';
 
 import { useVbenForm } from '#/adapter/form';
-import { getUserAuthList, handleUserAuthorize } from '#/api/system/user';
+import {
+  getAuthRoleList,
+  getUserAuthList,
+  handleUserAuthorize,
+} from '#/api/system/user';
 import { $t } from '#/locales';
 import { showToast } from '#/utils/common';
 
@@ -20,7 +24,7 @@ const authList = ref([]);
 
 // 用户授权角色下拉选项
 const getAuthOpts = async () => {
-  const data = await getUserAuthList();
+  const data = await getAuthRoleList();
   authList.value = data;
   return data?.map((item: { id: any; roleName: any }) => {
     return {
@@ -101,10 +105,12 @@ const [Modal, modalApi] = useVbenModal({
       }
     }
   },
-  onOpenChange(isOpen) {
+  async onOpenChange(isOpen) {
     if (isOpen) {
       const data = modalApi.getData<SystemUserApi.SystemUser>();
       if (data) {
+        const authList = await getUserAuthList({ id: data.id });
+        data.permission = authList.map((item: { roleId: any }) => item.roleId);
         formData.value = data;
         formApi.setValues(data);
       }
