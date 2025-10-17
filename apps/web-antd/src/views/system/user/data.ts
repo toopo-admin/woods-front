@@ -68,6 +68,26 @@ export function useColumns<T = SystemUserApi.SystemUser>(
       sortable: true,
     },
     {
+      field: 'createUser',
+      title: $t('common.createUser'),
+      minWidth: 150,
+      visible: false,
+    },
+    {
+      field: 'updateTime',
+      formatter: 'formatDateTime',
+      title: $t('common.updateTime'),
+      minWidth: 200,
+      sortable: true,
+      visible: false,
+    },
+    {
+      field: 'updateUser',
+      title: $t('common.updateUser'),
+      minWidth: 150,
+      visible: false,
+    },
+    {
       align: 'center',
       cellRender: {
         attrs: {
