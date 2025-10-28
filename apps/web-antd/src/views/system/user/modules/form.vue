@@ -46,7 +46,7 @@ const formSchema: VbenFormSchema[] = [
       ),
     dependencies: {
       disabled: () => {
-        return formData.value?.id ? true : false;
+        return !!formData.value?.id;
       },
       triggerFields: ['username'],
     },
@@ -60,7 +60,7 @@ const formSchema: VbenFormSchema[] = [
     },
     dependencies: {
       show: () => {
-        return formData.value?.id ? false : true;
+        return !formData.value?.id;
       },
       triggerFields: ['username'],
     },

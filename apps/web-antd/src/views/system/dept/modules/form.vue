@@ -51,7 +51,7 @@ const schema: VbenFormSchema[] = [
       ),
     dependencies: {
       disabled: () => {
-        return formData.value?.id ? true : false;
+        return !!formData.value?.id;
       },
       triggerFields: ['deptCode'],
     },
