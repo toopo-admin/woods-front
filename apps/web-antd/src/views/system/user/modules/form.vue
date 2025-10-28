@@ -44,6 +44,12 @@ const formSchema: VbenFormSchema[] = [
           ]),
         }),
       ),
+    dependencies: {
+      disabled: () => {
+        return formData.value?.id ? true : false;
+      },
+      triggerFields: ['username'],
+    },
   },
   {
     component: 'InputPassword',
@@ -51,6 +57,12 @@ const formSchema: VbenFormSchema[] = [
     label: $t('system.user.password'),
     componentProps: {
       placeholder: $t('system.user.defaultPassword'),
+    },
+    dependencies: {
+      show: () => {
+        return formData.value?.id ? false : true;
+      },
+      triggerFields: ['username'],
     },
   },
   {

@@ -12,6 +12,12 @@ export function useGridFormSchema(): VbenFormSchema[] {
       componentProps: { allowClear: true },
       label: $t('system.user.username'),
     },
+    {
+      component: 'Input',
+      fieldName: 'nickName',
+      componentProps: { allowClear: true },
+      label: $t('system.user.nickName'),
+    },
   ];
 }
 
@@ -26,7 +32,7 @@ export function useColumns<T = SystemUserApi.SystemUser>(
       cellRender: { name: 'CellImage' },
       field: 'avatar',
       title: $t('system.user.avatar'),
-      width: 84,
+      width: 64,
     },
     {
       field: 'username',

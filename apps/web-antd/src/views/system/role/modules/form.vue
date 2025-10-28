@@ -44,6 +44,12 @@ const formSchema: VbenFormSchema[] = [
           ]),
         }),
       ),
+    dependencies: {
+      disabled: () => {
+        return formData.value?.id ? true : false;
+      },
+      triggerFields: ['roleCode'],
+    },
   },
   {
     component: 'Input',

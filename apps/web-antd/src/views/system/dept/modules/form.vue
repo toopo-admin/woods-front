@@ -49,6 +49,12 @@ const schema: VbenFormSchema[] = [
           ]),
         }),
       ),
+    dependencies: {
+      disabled: () => {
+        return formData.value?.id ? true : false;
+      },
+      triggerFields: ['deptCode'],
+    },
   },
   {
     component: 'Input',
