@@ -38,12 +38,8 @@ export const useAuthStore = defineStore('auth', () => {
         userInfo = user;
         // 处理按钮权限码
         const authCode = []; // 按钮权限码
-        // console.log('userInfo ==', userInfo);
         for (const menus of userInfo.role_menu) {
-          for (const btn of menus.menu_btn) {
-            const btnCode = `${menus.route_name}_${btn.btn_code}`;
-            authCode.push(btnCode);
-          }
+          authCode.push(menus.authCode);
         }
         userStore.setUserInfo(userInfo);
         accessStore.setAccessCodes(authCode);

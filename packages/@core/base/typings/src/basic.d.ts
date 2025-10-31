@@ -32,7 +32,7 @@ interface BasicUserInfo {
   /**
    * 菜单权限
    */
-  role_menu: [];
+  role_menu: [any];
   /**
    * 用户角色
    */

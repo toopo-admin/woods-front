@@ -1,21 +1,22 @@
+import type { UserInfo } from '.././../../types/src/user';
+
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
-import type { UserInfo } from '.././../../types/src/user';
-import type { roleMenu } from '.././../../@core/base/typings/src';
+import { handleTreeMap } from '../../../../apps/web-antd/src/utils/common';
 
 interface AccessState {
   /**
+   * 菜单权限
+   */
+  roleMenus: any[];
+  /**
    * 用户信息
    */
-  userInfo: UserInfo | null;
+  userInfo: null | UserInfo;
   /**
    * 用户角色
    */
   userRoles: [];
-  /**
-   * 菜单权限
-   */
-  roleMenus: roleMenu[];
 }
 
 /**
@@ -23,19 +24,30 @@ interface AccessState {
  */
 export const useUserStore = defineStore('core-user', {
   actions: {
-    setUserInfo(userInfo: UserInfo | null) {
+    setUserInfo(userInfo: null | UserInfo) {
       // 设置用户信息
       this.userInfo = userInfo;
       // 设置角色信息
       const roles = userInfo?.user_role ?? [];
       const menus = userInfo?.role_menu ?? [];
+      const roleAuth = menus
+        .map((item) => {
+          return ['catalog', 'menu'].includes(item.type) ? item : false;
+        })
+        .filter(Boolean);
+      const roleMenu = handleTreeMap(roleAuth, {
+        idField: 'id',
+        parentField: 'pid',
+        parentValue: '0',
+        childrenField: 'children',
+      });
       this.setUserRoles(roles);
-      this.setRoleMenus(menus);
+      this.setRoleMenus(roleMenu);
     },
     setUserRoles(roles: []) {
       this.userRoles = roles;
     },
-    setRoleMenus(menus: roleMenu[]) {
+    setRoleMenus(menus: any[]) {
       this.roleMenus = menus;
     },
   },
