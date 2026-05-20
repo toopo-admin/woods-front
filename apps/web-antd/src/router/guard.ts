@@ -95,6 +95,8 @@ function setupAccessGuard(router: Router) {
     const userInfo = userStore.userInfo || (await authStore.fetchUserInfo());
     const userRoles = userInfo.user_role ?? [];
 
+    // console.log('获取路由数据');
+
     // 生成菜单和路由
     const { accessibleMenus, accessibleRoutes } = await generateAccess({
       roles: userRoles,
@@ -102,6 +104,8 @@ function setupAccessGuard(router: Router) {
       // 则会在菜单中显示，但是访问会被重定向到403
       routes: accessRoutes,
     });
+
+    // console.log('这是路由数据=', accessibleMenus, accessibleRoutes);
 
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(accessibleMenus);
