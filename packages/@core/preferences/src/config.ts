@@ -39,7 +39,7 @@ const defaultPreferences: Preferences = {
     styleType: 'normal',
   },
   copyright: {
-    companyName: 'DaShu',
+    companyName: 'Da Shu Hua Xia',
     companySiteLink: 'https://www.vben.pro',
     date: '2025',
     enable: true,

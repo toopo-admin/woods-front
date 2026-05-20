@@ -12,7 +12,7 @@ defineOptions({
 });
 
 withDefaults(defineProps<Props>(), {
-  companyName: 'DaShu',
+  companyName: 'Da Shu Hua Xia',
   companySiteLink: '',
   date: '2025',
   icp: '',
