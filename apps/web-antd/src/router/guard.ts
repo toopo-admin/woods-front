@@ -95,8 +95,6 @@ function setupAccessGuard(router: Router) {
     const userInfo = userStore.userInfo || (await authStore.fetchUserInfo());
     const userRoles = userInfo.user_role ?? [];
 
-    // console.log('获取路由数据');
-
     // 生成菜单和路由
     const { accessibleMenus, accessibleRoutes } = await generateAccess({
       roles: userRoles,
@@ -105,7 +103,8 @@ function setupAccessGuard(router: Router) {
       routes: accessRoutes,
     });
 
-    // console.log('这是路由数据=', accessibleMenus, accessibleRoutes);
+    // console.log('这是路由数据 accessibleMenus =', accessibleMenus);
+    // console.log('这是路由数据 accessibleRoutes =', accessibleRoutes);
 
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(accessibleMenus);

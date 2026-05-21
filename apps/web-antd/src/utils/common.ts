@@ -121,3 +121,28 @@ export const handleTreeFilte = (
   });
   return result;
 };
+
+// 将平面数据转成树型结构
+export const buildTreeMap = (data: any[], pid = '0') => {
+  const result: any[] = [];
+  data.forEach((item) => {
+    if (item.pid === pid) {
+      item.children = buildTreeMap(data, item.id);
+      result.push(item);
+    }
+  });
+  return result.sort((a, b) => a.sort - b.sort);
+};
+
+// 处理路由菜单数据结构
+export const buildTreeMenu = (data: any[], pid = '0') => {
+  const result: any[] = [];
+  data.forEach((item) => {
+    item.name = item.meta.title;
+    if (item.pid === pid) {
+      item.children = buildTreeMap(data, item.id);
+      result.push(item);
+    }
+  });
+  return result.sort((a, b) => a.sort - b.sort);
+};
